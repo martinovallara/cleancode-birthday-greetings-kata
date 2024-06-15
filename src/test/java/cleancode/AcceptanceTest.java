@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class AcceptanceTest {
+class AcceptanceTest {
 
 	private static final int NONSTANDARD_PORT = 9999;
 	private BirthdayService birthdayService;
@@ -18,7 +18,7 @@ public class AcceptanceTest {
 	@BeforeEach
 	public void setUp() {
 		mailServer = SimpleSmtpServer.start(NONSTANDARD_PORT);
-		birthdayService = new BirthdayService();
+		birthdayService = new BirthdayService(new EmployeesCSVReader("employee_data.txt"));
 	}
 
 	@AfterEach
@@ -28,23 +28,23 @@ public class AcceptanceTest {
 	}
 
 	@Test
-	public void willSendGreetings_whenItsSomebodysBirthday() throws Exception {
+	void willSendGreetings_whenItsSomebodysBirthday() throws Exception {
 
-		birthdayService.sendGreetings("employee_data.txt", new XDate("2008/10/08"), "localhost", NONSTANDARD_PORT);
+		birthdayService.sendGreetings( new XDate("2008/10/08"), "localhost", NONSTANDARD_PORT);
 
 		assertThat(mailServer.getReceivedEmailSize()).isEqualTo(1);
 		SmtpMessage message = (SmtpMessage) mailServer.getReceivedEmail().next();
 		assertThat(message.getBody()).isEqualTo("Happy Birthday, dear John!");
 		assertThat(message.getHeaderValue("Subject")).isEqualTo("Happy Birthday!");
 		String[] recipients = message.getHeaderValues("To");
-		assertThat(recipients.length).isEqualTo(1);
+		assertThat(recipients).hasSize(1);
 		assertThat(recipients[0]).isEqualTo("john.doe@foobar.com");
 	}
 
 	@Test
-	public void willNotSendEmailsWhenNobodysBirthday() throws Exception {
-		birthdayService.sendGreetings("employee_data.txt", new XDate("2008/01/01"), "localhost", NONSTANDARD_PORT);
+	void willNotSendEmailsWhenNobodysBirthday() throws Exception {
+		birthdayService.sendGreetings( new XDate("2008/01/01"), "localhost", NONSTANDARD_PORT);
 
-		assertThat(mailServer.getReceivedEmailSize()).isEqualTo(0);
+		assertThat(mailServer.getReceivedEmailSize()).isZero();
 	}
 }

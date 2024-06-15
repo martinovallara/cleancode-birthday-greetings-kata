@@ -9,8 +9,18 @@ repositories {
     mavenCentral()
 }
 
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.group == 'javax.mail' && details.requested.name == 'mail') {
+            details.useTarget group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+        }
+    }
+}
+
 dependencies {
-    implementation('javax.mail:mail:1.5.0-b01')
+    implementation('javax.mail:javax.mail-api:1.6.2') 
+    implementation('com.sun.mail:javax.mail:1.6.2') // updated dependency
+    implementation('javax.activation:javax.activation-api:1.2.0')
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.0-M1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.0-M1")
     testImplementation("dumbster:dumbster:1.6")
@@ -19,4 +29,10 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showStandardStreams true
+    }
 }
+
