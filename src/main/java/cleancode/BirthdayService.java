@@ -27,19 +27,15 @@ public class BirthdayService {
 	private void buildAndSendBirthdayGreetings(XDate xDate, String smtpHost, int smtpPort, Employee employee) {
 		try {
 			if (employee.isBirthday(xDate)) {
-				String recipient = employee.getEmail();
-				String body = "Happy Birthday, dear %NAME%!".replace("%NAME%", employee.getFirstName());
-				String subject = "Happy Birthday!";
-				sendMessage(smtpHost, smtpPort, "sender@here.com", subject, body, recipient);
+				EmailMessage message = new EmailMessage(employee);
+				sendMessage(smtpHost, smtpPort, "sender@here.com", message);
 			}
 		} catch (MessagingException e) {
-			// Handle AddressException and MessagingException
 			e.printStackTrace();
 		}
 	}
 
-
-	private void sendMessage(String smtpHost, int smtpPort, String sender, String subject, String body, String recipient) throws MessagingException {
+	private void sendMessage(String smtpHost, int smtpPort, String sender, EmailMessage message) throws MessagingException {
 		// Create a mail session
 		java.util.Properties props = new java.util.Properties();
 		props.put("mail.smtp.host", smtpHost);
@@ -49,9 +45,9 @@ public class BirthdayService {
 		// Construct the message
 		Message msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress(sender));
-		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-		msg.setSubject(subject);
-		msg.setText(body);
+		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(message.getRecipient()));
+		msg.setSubject(message.getSubject());
+		msg.setText(message.getBody());
 
 		// Send the message
 		Transport.send(msg);
