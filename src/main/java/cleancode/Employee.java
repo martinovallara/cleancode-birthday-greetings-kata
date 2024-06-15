@@ -1,6 +1,7 @@
 package cleancode;
 
 import java.text.ParseException;
+import cleancode.infrascructure.EMailSender;
 
 public class Employee {
 
@@ -8,12 +9,14 @@ public class Employee {
 	private String lastName;
 	private String firstName;
 	private String email;
+	private EMailSender emailSender;
 
-	public Employee(String firstName, String lastName, String birthDate, String email) throws ParseException {
+	public Employee(String firstName, String lastName, String birthDate, String email, EMailSender emailSender) throws ParseException {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = new XDate(birthDate);
 		this.email = email;
+		this.emailSender = emailSender;
 	}
 
 	public boolean isBirthday(XDate today) {
@@ -79,5 +82,7 @@ public class Employee {
 		return true;
 	}
 
-	
+    public EMailMessage buildMessage() {
+        return new EMailMessage(this, this.emailSender);
+    }	
 }

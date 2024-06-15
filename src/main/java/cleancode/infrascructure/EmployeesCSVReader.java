@@ -19,9 +19,11 @@ public class EmployeesCSVReader implements EmployeesFeacther {
     private static final int LAST_NAME_INDEX = 0;
     private static final int FIRST_NAME_INDEX = 1;
     private String fileName;
+	private EMailSender emailSender;
 
-    public EmployeesCSVReader(String fileName) {
+    public EmployeesCSVReader(String fileName, EMailSender emailSender) {
         this.fileName = fileName;
+        this.emailSender = emailSender;
     }
 
     @Override
@@ -48,7 +50,8 @@ public class EmployeesCSVReader implements EmployeesFeacther {
                     data[FIRST_NAME_INDEX],
                     data[LAST_NAME_INDEX],
                     data[BIRTH_DATE_INDEX],
-                    data[EMAIL_ADDRESS_INDEX]);
+                    data[EMAIL_ADDRESS_INDEX],
+                    this.emailSender);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;

@@ -23,8 +23,9 @@ class AcceptanceTest {
 	public void setUp() {
 		mailServer = SimpleSmtpServer.start(NONSTANDARD_PORT);
 		birthdayService = new BirthdayService(
-			new EmployeesCSVReader("employee_data.txt"),
-			new EMailSender("localhost", NONSTANDARD_PORT, "sender@here.com"));
+			new EmployeesCSVReader("employee_data.txt",
+			new EMailSender("localhost", NONSTANDARD_PORT, "sender@here.com"))
+			);
 	}
 
 	@AfterEach

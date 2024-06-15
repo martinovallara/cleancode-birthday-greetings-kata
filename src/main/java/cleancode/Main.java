@@ -7,8 +7,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		BirthdayService service = new BirthdayService(
-			new EmployeesCSVReader("employee_data.txt"),
-			new EMailSender("localhost", 25, "sender@here.com"));
+			new EmployeesCSVReader("employee_data.txt", new EMailSender("localhost", 25, "sender@here.com"))
+			);
 		service.sendGreetings(new XDate());
 	}
 }

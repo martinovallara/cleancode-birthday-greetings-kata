@@ -4,7 +4,6 @@ package cleancode;
 import javax.mail.MessagingException;
 
 import cleancode.port.EmployeesFeacther;
-import cleancode.port.SenderService;
 
 import java.util.List;
 
@@ -12,11 +11,9 @@ import java.util.List;
 public class BirthdayService {
 
 	private EmployeesFeacther employeesFeacther;
-	private SenderService senderService;
 
-	public BirthdayService(EmployeesFeacther employeesFeacther, SenderService senderService) {
+	public BirthdayService(EmployeesFeacther employeesFeacther) {
 		this.employeesFeacther = employeesFeacther;
-		this.senderService = senderService;
 	}
 
 	public void sendGreetings(XDate xDate) {
@@ -28,8 +25,8 @@ public class BirthdayService {
 	private void buildAndSendBirthdayGreetings(XDate xDate, Employee employee) {
 		try {
 			if (employee.isBirthday(xDate)) {
-				EMailMessage message = new EMailMessage(employee);
-				senderService.send(message);
+				EMailMessage message = employee.buildMessage();
+				message.send();
 			}
 		} catch (MessagingException e) {
 			e.printStackTrace();
