@@ -1,5 +1,7 @@
 package cleancode;
 
+import cleancode.infrascructure.EmployeesCSVReader;
+
 public class Main {
 
 	public static void main(String[] args) {
