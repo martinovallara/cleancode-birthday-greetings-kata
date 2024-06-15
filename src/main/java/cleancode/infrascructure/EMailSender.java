@@ -22,7 +22,7 @@ public final class EMailSender implements SenderService{
     }
 
     @Override
-    public void send(EMailMessage message) throws MessagingException {
+    public void send(EMailMessage emailMessage) throws MessagingException {
         // Create a mail session
         java.util.Properties props = new java.util.Properties();
         props.put("mail.smtp.host", smtpHost);
@@ -32,11 +32,12 @@ public final class EMailSender implements SenderService{
         // Construct the message
         Message msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(sender));
-        msg.setRecipient(Message.RecipientType.TO, new InternetAddress(message.getRecipient()));
-        msg.setSubject(message.getSubject());
-        msg.setText(message.getBody());
+
+        msg = emailMessage.buildMessage(msg);
 
         // Send the message
         Transport.send(msg);
     }
+
+
 }

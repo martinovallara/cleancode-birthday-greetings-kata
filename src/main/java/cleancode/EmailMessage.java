@@ -1,5 +1,9 @@
 package cleancode;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+
 public final class EMailMessage {
 
     private final String recipient;
@@ -12,15 +16,11 @@ public final class EMailMessage {
         this.subject = "Happy Birthday!";
     }
 
-    public String getRecipient() {
-        return recipient;
-    }
 
-    public String getBody() {
-        return body;
-    }
-
-    public String getSubject() {
-        return subject;
+    public Message buildMessage(Message msg)  throws MessagingException{
+        msg.setRecipient(Message.RecipientType.TO, new InternetAddress(this.recipient));
+        msg.setSubject(this.subject);
+        msg.setText(this.body);
+        return msg;
     }
 }
