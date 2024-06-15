@@ -1,12 +1,12 @@
 package cleancode;
 
-public final class EmailMessage {
+public final class EMailMessage {
 
     private final String recipient;
     private final String body;
     private final String subject;
 
-    public EmailMessage(Employee employee) {
+    public EMailMessage(Employee employee) {
         this.recipient = employee.getEmail();
         this.body = "Happy Birthday, dear %NAME%!".replace("%NAME%", employee.getFirstName());
         this.subject = "Happy Birthday!";

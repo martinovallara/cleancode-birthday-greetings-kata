@@ -1,55 +1,40 @@
 package cleancode;
 
 
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+
+import cleancode.port.EmployeesFeacther;
+import cleancode.port.SenderService;
+
 import java.util.List;
 
 
 public class BirthdayService {
 
 	private EmployeesFeacther employeesFeacther;
+	private SenderService senderService;
 
-	public BirthdayService(EmployeesFeacther employeesFeacther) {
+	public BirthdayService(EmployeesFeacther employeesFeacther, SenderService senderService) {
 		this.employeesFeacther = employeesFeacther;
+		this.senderService = senderService;
 	}
 
-	public void sendGreetings(XDate xDate, String smtpHost, int smtpPort) {
+	public void sendGreetings(XDate xDate) {
 		List<Employee> employees = employeesFeacther.fetchEmployeeRecords();
 
-		employees.forEach(employee -> buildAndSendBirthdayGreetings(xDate, smtpHost, smtpPort, employee));
+		employees.forEach(employee -> buildAndSendBirthdayGreetings(xDate, employee));
 	}
 
-	private void buildAndSendBirthdayGreetings(XDate xDate, String smtpHost, int smtpPort, Employee employee) {
+	private void buildAndSendBirthdayGreetings(XDate xDate, Employee employee) {
 		try {
 			if (employee.isBirthday(xDate)) {
-				EmailMessage message = new EmailMessage(employee);
-				sendMessage(smtpHost, smtpPort, "sender@here.com", message);
+				EMailMessage message = new EMailMessage(employee);
+				senderService.send(message);
 			}
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void sendMessage(String smtpHost, int smtpPort, String sender, EmailMessage message) throws MessagingException {
-		// Create a mail session
-		java.util.Properties props = new java.util.Properties();
-		props.put("mail.smtp.host", smtpHost);
-		props.put("mail.smtp.port", "" + smtpPort);
-		Session session = Session.getInstance(props, null);
 
-		// Construct the message
-		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress(sender));
-		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(message.getRecipient()));
-		msg.setSubject(message.getSubject());
-		msg.setText(message.getBody());
-
-		// Send the message
-		Transport.send(msg);
-	}
 }

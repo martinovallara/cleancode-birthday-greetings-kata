@@ -2,6 +2,7 @@ package cleancode;
 
 import com.dumbster.smtp.*;
 
+import cleancode.infrascructure.EMailSender;
 import cleancode.infrascructure.EmployeesCSVReader;
 
 import org.junit.jupiter.api.AfterEach;
@@ -21,7 +22,9 @@ class AcceptanceTest {
 	@BeforeEach
 	public void setUp() {
 		mailServer = SimpleSmtpServer.start(NONSTANDARD_PORT);
-		birthdayService = new BirthdayService(new EmployeesCSVReader("employee_data.txt"));
+		birthdayService = new BirthdayService(
+			new EmployeesCSVReader("employee_data.txt"),
+			new EMailSender("localhost", NONSTANDARD_PORT, "sender@here.com"));
 	}
 
 	@AfterEach
@@ -33,7 +36,7 @@ class AcceptanceTest {
 	@Test
 	void willSendGreetings_whenItsSomebodysBirthday() throws Exception {
 
-		birthdayService.sendGreetings( new XDate("2008/10/08"), "localhost", NONSTANDARD_PORT);
+		birthdayService.sendGreetings( new XDate("2008/10/08"));
 
 		assertThat(mailServer.getReceivedEmailSize()).isEqualTo(1);
 		SmtpMessage message = (SmtpMessage) mailServer.getReceivedEmail().next();
@@ -46,7 +49,7 @@ class AcceptanceTest {
 
 	@Test
 	void willNotSendEmailsWhenNobodysBirthday() throws Exception {
-		birthdayService.sendGreetings( new XDate("2008/01/01"), "localhost", NONSTANDARD_PORT);
+		birthdayService.sendGreetings( new XDate("2008/01/01"));
 
 		assertThat(mailServer.getReceivedEmailSize()).isZero();
 	}
