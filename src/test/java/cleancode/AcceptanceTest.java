@@ -29,7 +29,9 @@ class AcceptanceTest {
 		birthdayService = new BirthdayService(
 			new EmployeesCSVReader("employee_data.txt",
 				new EMailBirthdayFactory(
-						new EMailSender("localhost", NONSTANDARD_PORT, "sender@here.com")
+						new BirthdayMessageFactory(
+							new EMailSender("localhost", NONSTANDARD_PORT, "sender@here.com")
+						)
 				)
 			)
 		);
