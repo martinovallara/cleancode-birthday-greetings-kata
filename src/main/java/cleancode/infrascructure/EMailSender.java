@@ -7,7 +7,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import cleancode.EMailMessage;
 import cleancode.port.SenderService;
 
 public final class EMailSender implements SenderService{

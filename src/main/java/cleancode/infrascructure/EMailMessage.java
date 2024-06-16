@@ -1,12 +1,14 @@
-package cleancode;
+package cleancode.infrascructure;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
-import cleancode.infrascructure.EMailSender;
+
+import cleancode.BirthdayMessage;
+import cleancode.domain.Employee;
 
 
-public final class EMailMessage {
+public final class EMailMessage implements BirthdayMessage {
 
     private final String recipient;
     private final String body;
@@ -28,7 +30,12 @@ public final class EMailMessage {
         return msg;
     }
 
-	public void send() throws MessagingException{
-		this.emailSender.send(this);
+    @Override
+	public void send() {
+		try {
+            this.emailSender.send(this);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
 	}
 }

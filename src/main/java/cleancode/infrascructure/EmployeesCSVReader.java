@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import cleancode.Employee;
+import cleancode.domain.Employee;
 import cleancode.port.EmployeesFeacther;
 
 import java.util.Objects; // Add this import statement

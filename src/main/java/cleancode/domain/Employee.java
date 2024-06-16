@@ -1,6 +1,10 @@
-package cleancode;
+package cleancode.domain;
 
 import java.text.ParseException;
+
+import cleancode.BirthdayMessage;
+import cleancode.XDate;
+import cleancode.infrascructure.EMailMessage;
 import cleancode.infrascructure.EMailSender;
 
 public class Employee {
@@ -82,7 +86,7 @@ public class Employee {
 		return true;
 	}
 
-    public EMailMessage buildMessage() {
+    public BirthdayMessage buildMessage() {
         return new EMailMessage(this, this.emailSender);
     }	
 }

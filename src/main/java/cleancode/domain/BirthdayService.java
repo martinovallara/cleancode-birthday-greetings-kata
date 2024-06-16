@@ -1,11 +1,10 @@
-package cleancode;
-
-
-import javax.mail.MessagingException;
-
-import cleancode.port.EmployeesFeacther;
+package cleancode.domain;
 
 import java.util.List;
+
+import cleancode.BirthdayMessage;
+import cleancode.XDate;
+import cleancode.port.EmployeesFeacther;
 
 
 public class BirthdayService {
@@ -23,15 +22,9 @@ public class BirthdayService {
 	}
 
 	private void buildAndSendBirthdayGreetings(XDate xDate, Employee employee) {
-		try {
-			if (employee.isBirthday(xDate)) {
-				EMailMessage message = employee.buildMessage();
-				message.send();
-			}
-		} catch (MessagingException e) {
-			e.printStackTrace();
+		if (employee.isBirthday(xDate)) {
+			BirthdayMessage message = employee.buildMessage();
+			message.send();
 		}
 	}
-
-
 }

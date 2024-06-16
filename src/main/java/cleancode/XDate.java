@@ -2,12 +2,13 @@ package cleancode;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class XDate {
+public final class XDate {
 
-	private Date date;
+	private final Date date;
 
 	public XDate() {
 		date = new Date();
@@ -18,11 +19,11 @@ public class XDate {
 	}
 
 	public int getDay() {
-		return getPartOfDate(GregorianCalendar.DAY_OF_MONTH);
+		return getPartOfDate(Calendar.DAY_OF_MONTH);
 	}
 
 	public int getMonth() {
-		return 1 + getPartOfDate(GregorianCalendar.MONTH);
+		return 1 + getPartOfDate(Calendar.MONTH);
 	}
 
 	public boolean isSameDay(XDate anotherDate) {

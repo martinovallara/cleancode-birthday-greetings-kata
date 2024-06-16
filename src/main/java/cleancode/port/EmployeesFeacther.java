@@ -2,7 +2,7 @@ package cleancode.port;
 
 import java.util.List;
 
-import cleancode.Employee;
+import cleancode.domain.Employee;
 
 public interface EmployeesFeacther {
 

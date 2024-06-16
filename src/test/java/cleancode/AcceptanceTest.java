@@ -2,6 +2,7 @@ package cleancode;
 
 import com.dumbster.smtp.*;
 
+import cleancode.domain.BirthdayService;
 import cleancode.infrascructure.EMailSender;
 import cleancode.infrascructure.EmployeesCSVReader;
 
