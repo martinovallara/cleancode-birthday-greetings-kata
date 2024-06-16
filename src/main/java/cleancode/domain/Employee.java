@@ -2,7 +2,7 @@ package cleancode.domain;
 
 import java.text.ParseException;
 
-import cleancode.port.BirthdayFactory;
+import cleancode.port.BirthdayMessageFactory;
 import cleancode.port.BirthdayMessage;
 
 public class Employee {
@@ -11,14 +11,15 @@ public class Employee {
 	private String lastName;
 	private String firstName;
 	private String email;
-	private BirthdayFactory birthdayFactory;
+	private BirthdayMessageFactory birthdayMessageFactory;
 
-	public Employee(String firstName, String lastName, String birthDate, String email, BirthdayFactory birthdayFactory) throws ParseException {
+	public Employee(String firstName, String lastName, String birthDate, String email, BirthdayMessageFactory birthdayFactory)
+			throws ParseException {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = new XDate(birthDate);
 		this.email = email;
-		this.birthdayFactory = birthdayFactory;
+		this.birthdayMessageFactory = birthdayFactory;
 	}
 
 	public boolean isBirthday(XDate today) {
@@ -33,11 +34,14 @@ public class Employee {
 		return firstName;
 	}
 
+	public BirthdayMessage buildMessage() {
+		return this.birthdayMessageFactory.build(this);
+	}
+		
 	@Override
 	public String toString() {
 		return "Employee " + firstName + " " + lastName + " <" + email + "> born " + birthDate;
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -50,10 +54,6 @@ public class Employee {
 		result = prime * result
 				+ ((lastName == null) ? 0 : lastName.hashCode());
 		return result;
-	}
-	
-	public BirthdayMessage buildMessage() {
-		return this.birthdayFactory.build(this); 
 	}
 
 	@Override
@@ -87,5 +87,4 @@ public class Employee {
 			return false;
 		return true;
 	}
-
 }

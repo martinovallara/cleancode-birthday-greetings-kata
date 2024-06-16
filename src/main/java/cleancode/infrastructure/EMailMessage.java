@@ -22,7 +22,7 @@ public final class EMailMessage implements BirthdayMessage {
         this.subject = "Happy Birthday!";
         this.emailSender = emailSender;
     }
-
+    
 	public Message buildMessage(Message msg)  throws MessagingException{
         msg.setRecipient(Message.RecipientType.TO, new InternetAddress(this.recipient));
         msg.setSubject(this.subject);
