@@ -4,8 +4,8 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 
-import cleancode.BirthdayMessage;
 import cleancode.domain.Employee;
+import cleancode.port.BirthdayMessage;
 
 
 public final class EMailMessage implements BirthdayMessage {

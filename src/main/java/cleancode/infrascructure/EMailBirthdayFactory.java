@@ -1,8 +1,8 @@
 package cleancode.infrascructure;
 
-import cleancode.BirthdayMessage;
 import cleancode.domain.Employee;
 import cleancode.port.BirthdayFactory;
+import cleancode.port.BirthdayMessage;
 
 public class EMailBirthdayFactory implements BirthdayFactory {
 

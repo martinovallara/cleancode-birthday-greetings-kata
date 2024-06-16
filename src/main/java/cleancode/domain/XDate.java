@@ -1,4 +1,4 @@
-package cleancode;
+package cleancode.domain;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

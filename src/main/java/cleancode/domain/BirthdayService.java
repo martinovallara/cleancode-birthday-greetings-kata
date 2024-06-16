@@ -2,8 +2,7 @@ package cleancode.domain;
 
 import java.util.List;
 
-import cleancode.BirthdayMessage;
-import cleancode.XDate;
+import cleancode.port.BirthdayMessage;
 import cleancode.port.EmployeesFeacther;
 
 

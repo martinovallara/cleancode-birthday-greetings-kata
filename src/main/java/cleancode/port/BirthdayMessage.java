@@ -1,4 +1,4 @@
-package cleancode;
+package cleancode.port;
 
 public interface BirthdayMessage {
 

@@ -2,9 +2,8 @@ package cleancode.domain;
 
 import java.text.ParseException;
 
-import cleancode.BirthdayMessage;
-import cleancode.XDate;
 import cleancode.port.BirthdayFactory;
+import cleancode.port.BirthdayMessage;
 
 public class Employee {
 

@@ -5,6 +5,7 @@ package cleancode;
 import org.junit.jupiter.api.Test;
 
 import cleancode.domain.Employee;
+import cleancode.domain.XDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
