@@ -32,7 +32,7 @@ public final class EMailSender implements SenderService{
         Message msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(sender));
 
-        msg = emailMessage.buildMessage(msg);
+        msg = emailMessage.buildMailMessage(msg);
 
         // Send the message
         Transport.send(msg);

@@ -15,7 +15,6 @@ public final class EMailMessage implements BirthdayMessage {
     private final String subject;
 	private final EMailSender emailSender;
 
-
     public EMailMessage(Employee employee, EMailSender emailSender) {
         this.recipient = employee.getEmail();
         this.body = "Happy Birthday, dear %NAME%!".replace("%NAME%", employee.getFirstName());
@@ -23,7 +22,7 @@ public final class EMailMessage implements BirthdayMessage {
         this.emailSender = emailSender;
     }
     
-	public Message buildMessage(Message msg)  throws MessagingException{
+	public Message buildMailMessage(Message msg)  throws MessagingException{
         msg.setRecipient(Message.RecipientType.TO, new InternetAddress(this.recipient));
         msg.setSubject(this.subject);
         msg.setText(this.body);
