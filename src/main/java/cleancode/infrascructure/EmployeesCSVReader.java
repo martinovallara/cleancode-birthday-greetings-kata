@@ -2,16 +2,17 @@ package cleancode.infrascructure;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.text.ParseException;
+import java.io.FileReader;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects; // Add this import statement
+import java.text.ParseException;
 import java.util.stream.Collectors;
 
 import cleancode.domain.Employee;
 import cleancode.port.EmployeesFeacther;
 
-import java.util.Objects; // Add this import statement
-import java.io.FileReader;
 
 public class EmployeesCSVReader implements EmployeesFeacther {
     private static final int EMAIL_ADDRESS_INDEX = 3;
@@ -19,11 +20,11 @@ public class EmployeesCSVReader implements EmployeesFeacther {
     private static final int LAST_NAME_INDEX = 0;
     private static final int FIRST_NAME_INDEX = 1;
     private String fileName;
-	private EMailSender emailSender;
+	private EMailBirthdayFactory emailBirthdayFactory;
 
-    public EmployeesCSVReader(String fileName, EMailSender emailSender) {
+    public EmployeesCSVReader(String fileName, EMailBirthdayFactory emailBirthdayFactory) {
         this.fileName = fileName;
-        this.emailSender = emailSender;
+        this.emailBirthdayFactory = emailBirthdayFactory;
     }
 
     @Override
@@ -51,7 +52,7 @@ public class EmployeesCSVReader implements EmployeesFeacther {
                     data[LAST_NAME_INDEX],
                     data[BIRTH_DATE_INDEX],
                     data[EMAIL_ADDRESS_INDEX],
-                    this.emailSender);
+                    this.emailBirthdayFactory);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;

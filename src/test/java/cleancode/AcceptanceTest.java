@@ -3,6 +3,7 @@ package cleancode;
 import com.dumbster.smtp.*;
 
 import cleancode.domain.BirthdayService;
+import cleancode.infrascructure.EMailBirthdayFactory;
 import cleancode.infrascructure.EMailSender;
 import cleancode.infrascructure.EmployeesCSVReader;
 
@@ -25,8 +26,11 @@ class AcceptanceTest {
 		mailServer = SimpleSmtpServer.start(NONSTANDARD_PORT);
 		birthdayService = new BirthdayService(
 			new EmployeesCSVReader("employee_data.txt",
-			new EMailSender("localhost", NONSTANDARD_PORT, "sender@here.com"))
-			);
+				new EMailBirthdayFactory(
+						new EMailSender("localhost", NONSTANDARD_PORT, "sender@here.com")
+				)
+			)
+		);
 	}
 
 	@AfterEach

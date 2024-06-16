@@ -4,8 +4,7 @@ import java.text.ParseException;
 
 import cleancode.BirthdayMessage;
 import cleancode.XDate;
-import cleancode.infrascructure.EMailMessage;
-import cleancode.infrascructure.EMailSender;
+import cleancode.port.BirthdayFactory;
 
 public class Employee {
 
@@ -13,14 +12,14 @@ public class Employee {
 	private String lastName;
 	private String firstName;
 	private String email;
-	private EMailSender emailSender;
+	private BirthdayFactory birthdayFactory;
 
-	public Employee(String firstName, String lastName, String birthDate, String email, EMailSender emailSender) throws ParseException {
+	public Employee(String firstName, String lastName, String birthDate, String email, BirthdayFactory birthdayFactory) throws ParseException {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = new XDate(birthDate);
 		this.email = email;
-		this.emailSender = emailSender;
+		this.birthdayFactory = birthdayFactory;
 	}
 
 	public boolean isBirthday(XDate today) {
@@ -52,6 +51,10 @@ public class Employee {
 		result = prime * result
 				+ ((lastName == null) ? 0 : lastName.hashCode());
 		return result;
+	}
+	
+	public BirthdayMessage buildMessage() {
+		return this.birthdayFactory.build(this); 
 	}
 
 	@Override
@@ -86,7 +89,4 @@ public class Employee {
 		return true;
 	}
 
-    public BirthdayMessage buildMessage() {
-        return new EMailMessage(this, this.emailSender);
-    }	
 }
