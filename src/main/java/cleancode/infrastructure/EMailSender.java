@@ -1,4 +1,4 @@
-package cleancode.infrascructure;
+package cleancode.infrastructure;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;

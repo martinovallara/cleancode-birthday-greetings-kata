@@ -1,4 +1,4 @@
-package cleancode.infrascructure;
+package cleancode.infrastructure;
 
 import java.io.BufferedReader;
 import java.io.IOException;

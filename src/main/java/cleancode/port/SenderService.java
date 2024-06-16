@@ -2,7 +2,7 @@ package cleancode.port;
 
 import javax.mail.MessagingException;
 
-import cleancode.infrascructure.EMailMessage;
+import cleancode.infrastructure.EMailMessage;
 
 public interface SenderService {
 
