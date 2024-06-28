@@ -4,7 +4,6 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 
-import cleancode.domain.Employee;
 import cleancode.port.BirthdayMessage;
 
 
@@ -15,10 +14,10 @@ public final class EMailMessage implements BirthdayMessage {
     private final String subject;
 	private final EMailSender emailSender;
 
-    public EMailMessage(Employee employee, EMailSender emailSender) {
-        this.recipient = employee.getEmail();
-        this.body = "Happy Birthday, dear %NAME%!".replace("%NAME%", employee.getFirstName());
-        this.subject = "Happy Birthday!";
+    public EMailMessage(String recipient, String body, String subject, EMailSender emailSender) {
+        this.recipient = recipient;
+        this.body = body;
+        this.subject = subject;
         this.emailSender = emailSender;
     }
     

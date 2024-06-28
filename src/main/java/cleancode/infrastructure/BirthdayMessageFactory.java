@@ -13,6 +13,10 @@ public class BirthdayMessageFactory implements EMailMessageFactory {
 
     @Override
     public BirthdayMessage build(Employee employee) {
-        return new EMailMessage(employee, this.emailSender);
+        var recipient = employee.getEmail();
+        var body = "Happy Birthday, dear %NAME%!".replace("%NAME%", employee.getFirstName());
+        var subject = "Happy Birthday!";
+        // here can define the message type: ex EMailMessage, SMSMessage, etc
+        return new EMailMessage(recipient, body, subject, this.emailSender);
     }
 }
