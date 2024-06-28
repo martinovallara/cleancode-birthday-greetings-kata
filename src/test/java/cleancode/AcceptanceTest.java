@@ -4,7 +4,7 @@ import com.dumbster.smtp.*;
 
 import cleancode.domain.BirthdayService;
 import cleancode.domain.XDate;
-import cleancode.infrastructure.BirthdayMessageFactory;
+import cleancode.infrastructure.BirthdayEMailFactory;
 import cleancode.infrastructure.EMailBirthdayFactory;
 import cleancode.infrastructure.EMailSender;
 import cleancode.infrastructure.EmployeesCSVReader;
@@ -29,7 +29,7 @@ class AcceptanceTest {
 		birthdayService = new BirthdayService(
 			new EmployeesCSVReader("employee_data.txt",
 				new EMailBirthdayFactory(
-						new BirthdayMessageFactory(
+						new BirthdayEMailFactory(
 							new EMailSender("localhost", NONSTANDARD_PORT, "sender@here.com")
 						)
 				)

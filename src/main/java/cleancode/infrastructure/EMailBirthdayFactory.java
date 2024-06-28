@@ -6,14 +6,14 @@ import cleancode.port.BirthdayMessage;
 
 public class EMailBirthdayFactory implements BirthdayMessageFactory {
 
-    private EMailMessageFactory emailMessageFactory;
+    private BirthdayMessageFactory birthdayMessageFactory;
 
-    public EMailBirthdayFactory(EMailMessageFactory emailMessageFactory) {
-        this.emailMessageFactory = emailMessageFactory;
+    public EMailBirthdayFactory(BirthdayMessageFactory emailMessageFactory) {
+        this.birthdayMessageFactory = emailMessageFactory;
     }
 
     @Override
     public BirthdayMessage build(Employee employee) {
-        return this.emailMessageFactory.build(employee);
+        return this.birthdayMessageFactory.build(employee);
     }
 }

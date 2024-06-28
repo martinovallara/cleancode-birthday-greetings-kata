@@ -2,12 +2,13 @@ package cleancode.infrastructure;
 
 import cleancode.domain.Employee;
 import cleancode.port.BirthdayMessage;
+import cleancode.port.BirthdayMessageFactory;
 
-public class BirthdayMessageFactory implements EMailMessageFactory {
+public class BirthdayEMailFactory implements BirthdayMessageFactory {
 
     private final EMailSender emailSender;
 
-    public BirthdayMessageFactory(EMailSender emailSender) {
+    public BirthdayEMailFactory(EMailSender emailSender) {
         this.emailSender = emailSender;
     }
 
